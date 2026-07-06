@@ -13,7 +13,7 @@
 主域名：zlme.ren
 Pages：zlme-ren.pages.dev
 资源入口：files.zlme.ren
-Cloudflare 账号邮箱：lzhou9045@gmai.com
+Cloudflare 账号邮箱：lzhou9045@gmail.com
 ```
 
 ## 2. Cloudflare Pages

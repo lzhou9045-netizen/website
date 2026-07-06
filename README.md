@@ -33,7 +33,7 @@ const siteConfig = {
   filesUrl: "https://files.zlme.ren",
   panUrl: "https://pan.baidu.com",
   githubUrl: "https://github.com/",
-  email: "lzhou9045@gmai.com"
+  email: "lzhou9045@gmail.com"
 };
 ```
 
