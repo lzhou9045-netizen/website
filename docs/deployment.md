@@ -1,74 +1,48 @@
-# 部署清单
+# 閮ㄧ讲娓呭崟
 
-## 1. 域名与 DNS
+## 1. 鍩熷悕涓?DNS
 
-1. 在 Cloudflare 添加阿里云注册的域名 `zlme.ren`。
-2. Cloudflare 会给出两个 nameserver。
-3. 到阿里云域名控制台，把 DNS 服务器改成 Cloudflare 提供的 nameserver。
-4. 等待 DNS 生效。
-
-建议记录：
-
+1. 鍦?Cloudflare 娣诲姞闃块噷浜戞敞鍐岀殑鍩熷悕 `zlme.ren`銆?2. Cloudflare 浼氱粰鍑轰袱涓?nameserver銆?3. 鍒伴樋閲屼簯鍩熷悕鎺у埗鍙帮紝鎶?DNS 鏈嶅姟鍣ㄦ敼鎴?Cloudflare 鎻愪緵鐨?nameserver銆?4. 绛夊緟 DNS 鐢熸晥銆?
+寤鸿璁板綍锛?
 ```text
-主域名：zlme.ren
-Pages/Workers 项目：zlme-ren
-资源入口：files.zlme.ren
-Cloudflare 账号邮箱：lzhou9045@gmail.com
-GitHub 仓库：lzhou9045-netizen/website
+涓诲煙鍚嶏細zlme.ren
+Pages/Workers 椤圭洰锛歾lme-ren
+璧勬簮鍏ュ彛锛歠iles.zlme.ren
+Cloudflare 璐﹀彿閭锛歭zhou9045@gmail.com
+GitHub 浠撳簱锛歭zhou9045-netizen/website
 ```
 
 ## 2. Cloudflare Pages / Workers Static Assets
 
-1. Cloudflare 选择 GitHub 仓库 `lzhou9045-netizen/website`。
-2. 如果是 Pages 静态站配置：
-   - Framework preset: None
-   - Build command: 留空
+1. Cloudflare 閫夋嫨 GitHub 浠撳簱 `lzhou9045-netizen/website`銆?2. 濡傛灉鏄?Pages 闈欐€佺珯閰嶇疆锛?   - Framework preset: None
+   - Build command: 鐣欑┖
    - Build output directory: `public`
-3. 如果 Cloudflare 显示 Deploy command 为 `npx wrangler deploy`，保留即可；仓库里的 `wrangler.jsonc` 会指定只发布 `public` 目录。
-4. 添加自定义域名：
+3. 濡傛灉 Cloudflare 鏄剧ず Deploy command 涓?`npx wrangler deploy`锛屼繚鐣欏嵆鍙紱浠撳簱閲岀殑 `wrangler.jsonc` 浼氭寚瀹氬彧鍙戝竷 `public` 鐩綍銆?4. 娣诲姞鑷畾涔夊煙鍚嶏細
    - `zlme.ren`
    - `www.zlme.ren`
-5. 部署成功后，访问主页并检查样式、图片、博客链接和资源入口链接。
+5. 閮ㄧ讲鎴愬姛鍚庯紝璁块棶涓婚〉骞舵鏌ユ牱寮忋€佸浘鐗囥€佸崥瀹㈤摼鎺ュ拰璧勬簮鍏ュ彛閾炬帴銆?
+## 3. NAS Docker 鏈嶅姟
 
-## 3. NAS Docker 服务
-
-1. 复制 `nas/.env.example` 为 NAS 上的 `.env`。
-2. 在 Cloudflare Zero Trust 创建 Tunnel，复制 token 到 `.env`。
-3. 按实际 NAS 共享目录修改 `nas/docker-compose.yml` 中的 volume。
-4. 在 NAS 上启动：
+1. 澶嶅埗 `nas/.env.example` 涓?NAS 涓婄殑 `.env`銆?2. 鍦?Cloudflare Zero Trust 鍒涘缓 Tunnel锛屽鍒?token 鍒?`.env`銆?3. 鎸夊疄闄?NAS 鍏变韩鐩綍淇敼 `nas/docker-compose.yml` 涓殑 volume銆?4. 鍦?NAS 涓婂惎鍔細
 
 ```bash
 docker compose up -d
 ```
 
-5. 首次登录 AList 后，创建管理员账号和只读账号。
-6. 只挂载需要从公网访问的目录和百度网盘，不挂载 NAS 根目录。
-
+5. 棣栨鐧诲綍 AList 鍚庯紝鍒涘缓绠＄悊鍛樿处鍙峰拰鍙璐﹀彿銆?6. 鍙寕杞介渶瑕佷粠鍏綉璁块棶鐨勭洰褰曞拰鐧惧害缃戠洏锛屼笉鎸傝浇 NAS 鏍圭洰褰曘€?
 ## 4. Cloudflare Tunnel
 
-在 Cloudflare Zero Trust 的 Tunnel 中添加 Public hostname：
-
+鍦?Cloudflare Zero Trust 鐨?Tunnel 涓坊鍔?Public hostname锛?
 ```text
 Hostname: files.zlme.ren
 Service:  http://alist:5244
 ```
 
-确认 DNS 中出现指向 `<UUID>.cfargotunnel.com` 的 CNAME。
-
+纭 DNS 涓嚭鐜版寚鍚?`<UUID>.cfargotunnel.com` 鐨?CNAME銆?
 ## 5. Cloudflare Access
 
-1. 新建 Self-hosted application。
-2. Application domain 填 `files.zlme.ren`。
-3. Policy 建议：
-   - Action: Allow
-   - Include: 指定邮箱或邮箱域名
-4. 访问 `https://files.zlme.ren`，确认先出现 Cloudflare Access 登录。
+1. 鏂板缓 Self-hosted application銆?2. Application domain 濉?`files.zlme.ren`銆?3. Policy 寤鸿锛?   - Action: Allow
+   - Include: 鎸囧畾閭鎴栭偖绠卞煙鍚?4. 璁块棶 `https://files.zlme.ren`锛岀‘璁ゅ厛鍑虹幇 Cloudflare Access 鐧诲綍銆?
+## 6. 楠屾敹
 
-## 6. 验收
-
-- `https://zlme.ren` 能打开首页。
-- `https://www.zlme.ren` 能跳转到首页。
-- `https://files.zlme.ren` 未登录时不能直接进入 AList。
-- 登录后能看到指定 NAS 目录和百度网盘资源。
-- 手机关闭 Wi-Fi 后仍能访问主页和登录资源入口。
-- 停止 `cloudflared` 后，主页仍可访问，只有资源入口不可用。
+- `https://zlme.ren` 鑳芥墦寮€棣栭〉銆?- `https://www.zlme.ren` 鑳借烦杞埌棣栭〉銆?- `https://files.zlme.ren` 鏈櫥褰曟椂涓嶈兘鐩存帴杩涘叆 AList銆?- 鐧诲綍鍚庤兘鐪嬪埌鎸囧畾 NAS 鐩綍鍜岀櫨搴︾綉鐩樿祫婧愩€?- 鎵嬫満鍏抽棴 Wi-Fi 鍚庝粛鑳借闂富椤靛拰鐧诲綍璧勬簮鍏ュ彛銆?- 鍋滄 `cloudflared` 鍚庯紝涓婚〉浠嶅彲璁块棶锛屽彧鏈夎祫婧愬叆鍙ｄ笉鍙敤銆
