@@ -1,4 +1,4 @@
-# 个人网站：博客与资源入口
+﻿# 个人网站：博客与资源入口
 
 这是一个零依赖静态个人网站，适合部署到 Cloudflare Pages。公开站点负责展示博客、项目记录和资源入口；NAS 文件入口通过 Cloudflare Tunnel 暴露到 `files.zlme.ren`，并由 Cloudflare Access 和 AList 登录共同保护。
 
@@ -10,6 +10,7 @@
 - `nas/docker-compose.yml`：NAS 上运行 AList 与 cloudflared 的模板。
 - `nas/.env.example`：Tunnel Token 等环境变量示例。
 - `_headers`：Cloudflare Pages 的基础安全响应头。
+- `_redirects`：把 `www.zlme.ren` 统一重定向到 `zlme.ren`。
 - `docs/deployment.md`：从域名、Pages、Tunnel 到访问保护的实施清单。
 
 ## 本地预览
