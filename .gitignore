@@ -1,4 +1,4 @@
-﻿.cache/
+.cache/
 .tmp/
 .local/
 .agents/
@@ -17,3 +17,4 @@ target/
 project-local-env.ps1
 run-local.cmd
 run-local.ps1
+.wrangler/

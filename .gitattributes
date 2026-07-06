@@ -1,0 +1,10 @@
+* text=auto
+_headers text eol=lf
+_redirects text eol=lf
+public/_headers text eol=lf
+public/_redirects text eol=lf
+*.jsonc text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.md text eol=lf

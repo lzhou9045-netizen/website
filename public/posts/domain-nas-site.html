@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="个人网站、Cloudflare Pages、Cloudflare Tunnel、NAS 与 AList 的实施记录。">
+  <title>从域名到 NAS：个人网站实施记录</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .article {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 120px 24px 72px;
+    }
+
+    .article h1 {
+      color: var(--ink);
+      font-size: clamp(36px, 6vw, 68px);
+    }
+
+    .article p,
+    .article li {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .article a {
+      color: var(--teal-dark);
+      font-weight: 800;
+    }
+
+    .article-section {
+      margin-top: 42px;
+    }
+
+    .article-section h2 {
+      font-size: clamp(26px, 4vw, 42px);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header is-scrolled" aria-label="主导航">
+    <a class="brand" href="../index.html#home" aria-label="返回首页">
+      <span class="brand-mark">P</span>
+      <span class="brand-text">我的个人空间</span>
+    </a>
+    <nav class="nav-links" aria-label="页面导航">
+      <a href="../index.html#blog">博客</a>
+      <a href="../index.html#resources">资源</a>
+      <a href="../index.html#deploy">架构</a>
+      <a href="../index.html#contact">联系</a>
+    </nav>
+  </header>
+
+  <main class="article">
+    <p class="eyebrow">Implementation note</p>
+    <h1>从域名到 NAS：个人网站实施记录</h1>
+    <p>
+      这个网站采用公开静态主页加受保护资源入口的结构。主页部署到 Cloudflare Pages，
+      NAS 通过 Cloudflare Tunnel 出站连接 Cloudflare，再用 Cloudflare Access 和 AList 权限做双层保护。
+    </p>
+
+    <section class="article-section">
+      <h2>为什么这样设计</h2>
+      <p>
+        NAS 没有公网 IPv4 和 IPv6，不适合直接暴露服务。Tunnel 可以避免路由器端口映射；
+        静态主页则独立托管，即使 NAS 关机，博客和导航页也能继续访问。
+      </p>
+    </section>
+
+    <section class="article-section">
+      <h2>域名规划</h2>
+      <ul>
+        <li><strong>zlme.ren</strong>：个人主页、博客和资源导航。</li>
+        <li><strong>www.zlme.ren</strong>：主页别名，和根域名保持一致。</li>
+        <li><strong>files.zlme.ren</strong>：Cloudflare Access 保护后的 NAS 资源入口。</li>
+      </ul>
+    </section>
+
+    <section class="article-section">
+      <h2>上线清单</h2>
+      <ul>
+        <li>把阿里云域名的 DNS nameserver 切到 Cloudflare。</li>
+        <li>Cloudflare Pages 连接 GitHub 仓库，部署当前静态站。</li>
+        <li>NAS 上用 Docker 启动 AList 和 cloudflared。</li>
+        <li>在 Cloudflare Zero Trust 为 files.zlme.ren 配置 Tunnel 和 Access 登录策略。</li>
+        <li>从手机流量访问主页和资源入口，确认公网访问路径正常。</li>
+      </ul>
+    </section>
+
+    <section class="article-section">
+      <h2>后续扩展</h2>
+      <p>
+        文章数量变多后，可以把静态 HTML 迁移到 Astro、Hugo 或 Hexo。资源入口如果需要多人使用，
+        再单独设计目录权限、只读账号、审计日志和备份策略。
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; <span id="year"></span> 我的个人空间</span>
+    <a href="../index.html#home">返回首页</a>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

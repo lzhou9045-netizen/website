@@ -2,7 +2,7 @@
 
 ## 1. 域名与 DNS
 
-1. 在 Cloudflare 添加阿里云注册的域名。
+1. 在 Cloudflare 添加阿里云注册的域名 `zlme.ren`。
 2. Cloudflare 会给出两个 nameserver。
 3. 到阿里云域名控制台，把 DNS 服务器改成 Cloudflare 提供的 nameserver。
 4. 等待 DNS 生效。
@@ -11,19 +11,20 @@
 
 ```text
 主域名：zlme.ren
-Pages：zlme-ren.pages.dev
+Pages/Workers 项目：zlme-ren
 资源入口：files.zlme.ren
 Cloudflare 账号邮箱：lzhou9045@gmail.com
+GitHub 仓库：lzhou9045-netizen/website
 ```
 
-## 2. Cloudflare Pages
+## 2. Cloudflare Pages / Workers Static Assets
 
-1. 建 GitHub 仓库并提交本项目。
-2. Cloudflare Pages 选择该仓库。
-3. 构建设置：
+1. Cloudflare 选择 GitHub 仓库 `lzhou9045-netizen/website`。
+2. 如果是 Pages 静态站配置：
    - Framework preset: None
    - Build command: 留空
-   - Build output directory: `/`
+   - Build output directory: `public`
+3. 如果 Cloudflare 显示 Deploy command 为 `npx wrangler deploy`，保留即可；仓库里的 `wrangler.jsonc` 会指定只发布 `public` 目录。
 4. 添加自定义域名：
    - `zlme.ren`
    - `www.zlme.ren`
@@ -66,7 +67,7 @@ Service:  http://alist:5244
 ## 6. 验收
 
 - `https://zlme.ren` 能打开首页。
-- `https://www.zlme.ren` 能打开或跳转到首页。
+- `https://www.zlme.ren` 能跳转到首页。
 - `https://files.zlme.ren` 未登录时不能直接进入 AList。
 - 登录后能看到指定 NAS 目录和百度网盘资源。
 - 手机关闭 Wi-Fi 后仍能访问主页和登录资源入口。

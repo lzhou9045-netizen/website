@@ -1,0 +1,16 @@
+.git
+.wrangler
+.cache
+.tmp
+.local
+.agents
+.cargo
+.cargo-home
+.pnpm-home
+.pnpm-store
+dist
+docs
+nas
+target
+node_modules
+*.log
