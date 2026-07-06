@@ -1,0 +1,25 @@
+﻿services:
+  alist:
+    image: xhofe/alist:latest
+    container_name: personal-site-alist
+    restart: unless-stopped
+    volumes:
+      - ./alist-data:/opt/alist/data
+      # Change this path to the NAS folder you want to expose through AList.
+      - /volume1/public-share:/nas/public-share:ro
+    networks:
+      - personal-site
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: personal-site-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARED_TOKEN}
+    depends_on:
+      - alist
+    networks:
+      - personal-site
+
+networks:
+  personal-site:
+    name: personal-site
