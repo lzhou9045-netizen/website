@@ -1,4 +1,4 @@
-﻿# 部署清单
+# 部署清单
 
 ## 1. 域名与 DNS
 
@@ -10,10 +10,10 @@
 建议记录：
 
 ```text
-主域名：example.com
-Pages：example.pages.dev
-资源入口：files.example.com
-Cloudflare 账号邮箱：your-email@example.com
+主域名：zlme.ren
+Pages：zlme-ren.pages.dev
+资源入口：files.zlme.ren
+Cloudflare 账号邮箱：your-email@zlme.ren
 ```
 
 ## 2. Cloudflare Pages
@@ -25,8 +25,8 @@ Cloudflare 账号邮箱：your-email@example.com
    - Build command: 留空
    - Build output directory: `/`
 4. 添加自定义域名：
-   - `example.com`
-   - `www.example.com`
+   - `zlme.ren`
+   - `www.zlme.ren`
 5. 部署成功后，访问主页并检查样式、图片、博客链接和资源入口链接。
 
 ## 3. NAS Docker 服务
@@ -48,7 +48,7 @@ docker compose up -d
 在 Cloudflare Zero Trust 的 Tunnel 中添加 Public hostname：
 
 ```text
-Hostname: files.example.com
+Hostname: files.zlme.ren
 Service:  http://alist:5244
 ```
 
@@ -57,17 +57,17 @@ Service:  http://alist:5244
 ## 5. Cloudflare Access
 
 1. 新建 Self-hosted application。
-2. Application domain 填 `files.example.com`。
+2. Application domain 填 `files.zlme.ren`。
 3. Policy 建议：
    - Action: Allow
    - Include: 指定邮箱或邮箱域名
-4. 访问 `https://files.example.com`，确认先出现 Cloudflare Access 登录。
+4. 访问 `https://files.zlme.ren`，确认先出现 Cloudflare Access 登录。
 
 ## 6. 验收
 
-- `https://example.com` 能打开首页。
-- `https://www.example.com` 能打开或跳转到首页。
-- `https://files.example.com` 未登录时不能直接进入 AList。
+- `https://zlme.ren` 能打开首页。
+- `https://www.zlme.ren` 能打开或跳转到首页。
+- `https://files.zlme.ren` 未登录时不能直接进入 AList。
 - 登录后能看到指定 NAS 目录和百度网盘资源。
 - 手机关闭 Wi-Fi 后仍能访问主页和登录资源入口。
 - 停止 `cloudflared` 后，主页仍可访问，只有资源入口不可用。

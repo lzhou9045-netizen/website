@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -71,9 +71,9 @@
     <section class="article-section">
       <h2>域名规划</h2>
       <ul>
-        <li><strong>example.com</strong>：个人主页、博客和资源导航。</li>
-        <li><strong>www.example.com</strong>：主页别名，和根域名保持一致。</li>
-        <li><strong>files.example.com</strong>：Cloudflare Access 保护后的 NAS 资源入口。</li>
+        <li><strong>zlme.ren</strong>：个人主页、博客和资源导航。</li>
+        <li><strong>www.zlme.ren</strong>：主页别名，和根域名保持一致。</li>
+        <li><strong>files.zlme.ren</strong>：Cloudflare Access 保护后的 NAS 资源入口。</li>
       </ul>
     </section>
 
@@ -83,7 +83,7 @@
         <li>把阿里云域名的 DNS nameserver 切到 Cloudflare。</li>
         <li>Cloudflare Pages 连接 GitHub 仓库，部署当前静态站。</li>
         <li>NAS 上用 Docker 启动 AList 和 cloudflared。</li>
-        <li>在 Cloudflare Zero Trust 为 files.example.com 配置 Tunnel 和 Access 登录策略。</li>
+        <li>在 Cloudflare Zero Trust 为 files.zlme.ren 配置 Tunnel 和 Access 登录策略。</li>
         <li>从手机流量访问主页和资源入口，确认公网访问路径正常。</li>
       </ul>
     </section>

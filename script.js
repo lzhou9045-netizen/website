@@ -1,12 +1,12 @@
-﻿const header = document.querySelector(".site-header");
+const header = document.querySelector(".site-header");
 const year = document.querySelector("#year");
 
 const siteConfig = {
-  siteUrl: "https://example.com",
-  filesUrl: "https://files.example.com",
+  siteUrl: "https://zlme.ren",
+  filesUrl: "https://files.zlme.ren",
   panUrl: "https://pan.baidu.com",
   githubUrl: "https://github.com/",
-  email: "hello@example.com"
+  email: "hello@zlme.ren"
 };
 
 function applyConfig() {
